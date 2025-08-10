@@ -79,3 +79,5 @@ func (d *Dictionary) Add(words ...string) {
 		}
 	}
 }
+
+func (d *Dictionary) Words() []string { return d.id2word }

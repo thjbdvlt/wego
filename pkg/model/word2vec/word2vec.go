@@ -254,4 +254,5 @@ func (w *word2vec) WordVector(typ vector.Type) *matrix.Matrix {
 	return mat
 }
 
-func (w *word2vec) Corpus() *corpus.Corpus { return &w.corpus }
+func (w *word2vec) Words() []string { return w.corpus.Dictionary().Words() }
+func (w *word2vec) Len() int        { return w.corpus.Len() }
