@@ -15,14 +15,14 @@
 package matrix
 
 type Matrix struct {
-	array []float64
+	Array []float64
 	row   int
 	col   int
 }
 
 func New(row, col int, fn func(int, []float64)) *Matrix {
 	mat := &Matrix{
-		array: make([]float64, row*col),
+		Array: make([]float64, row*col),
 		row:   row,
 		col:   col,
 	}
@@ -46,5 +46,5 @@ func (m *Matrix) Col() int {
 
 func (m *Matrix) Slice(id int) []float64 {
 	start := m.startIndex(id)
-	return m.array[start : start+m.col]
+	return m.Array[start : start+m.col]
 }
