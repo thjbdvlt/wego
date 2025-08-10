@@ -39,7 +39,7 @@ import (
 type word2vec struct {
 	opts Options
 
-	Corpus corpus.Corpus
+	corpus corpus.Corpus
 
 	param      *matrix.Matrix
 	subsampler *subsample.Subsampler
@@ -73,16 +73,16 @@ func NewForOptions(opts Options) (model.Model, error) {
 
 func (w *word2vec) Train(r io.ReadSeeker) error {
 	if w.opts.DocInMemory {
-		w.Corpus = memory.New(r, w.opts.ToLower, w.opts.MaxCount, w.opts.MinCount)
+		w.corpus = memory.New(r, w.opts.ToLower, w.opts.MaxCount, w.opts.MinCount)
 	} else {
-		w.Corpus = fs.New(r, w.opts.ToLower, w.opts.MaxCount, w.opts.MinCount)
+		w.corpus = fs.New(r, w.opts.ToLower, w.opts.MaxCount, w.opts.MinCount)
 	}
 
-	if err := w.Corpus.Load(nil, w.verbose, w.opts.LogBatch); err != nil {
+	if err := w.corpus.Load(nil, w.verbose, w.opts.LogBatch); err != nil {
 		return err
 	}
 
-	dic, dim := w.Corpus.Dictionary(), w.opts.Dim
+	dic, dim := w.corpus.Dictionary(), w.opts.Dim
 
 	w.param = matrix.New(
 		dic.Len(),
@@ -108,12 +108,12 @@ func (w *word2vec) Train(r io.ReadSeeker) error {
 	switch w.opts.OptimizerType {
 	case NegativeSampling:
 		w.optimizer = newNegativeSampling(
-			w.Corpus.Dictionary(),
+			w.corpus.Dictionary(),
 			w.opts,
 		)
 	case HierarchicalSoftmax:
 		w.optimizer = newHierarchicalSoftmax(
-			w.Corpus.Dictionary(),
+			w.corpus.Dictionary(),
 			w.opts,
 		)
 	default:
@@ -133,7 +133,7 @@ func (w *word2vec) Train(r io.ReadSeeker) error {
 }
 
 func (w *word2vec) train() error {
-	doc := w.Corpus.IndexedDoc()
+	doc := w.corpus.IndexedDoc()
 	indexPerThread := modelutil.IndexPerThread(
 		w.opts.Goroutines,
 		len(doc),
@@ -167,7 +167,7 @@ func (w *word2vec) batchTrain() error {
 		wg := &sync.WaitGroup{}
 
 		in := make(chan []int, w.opts.Goroutines)
-		go w.Corpus.BatchWords(in, w.opts.BatchSize)
+		go w.corpus.BatchWords(in, w.opts.BatchSize)
 		for doc := range in {
 			wg.Add(1)
 			go w.trainPerThread(doc, trained, sem, wg)
@@ -212,7 +212,7 @@ func (w *word2vec) observe(trained chan struct{}, clk *clock.Clock) {
 			if w.currentlr < w.opts.MinLR {
 				w.currentlr = w.opts.MinLR
 			} else {
-				w.currentlr = w.opts.Initlr * (1.0 - float64(cnt)/float64(w.Corpus.Len()))
+				w.currentlr = w.opts.Initlr * (1.0 - float64(cnt)/float64(w.corpus.Len()))
 			}
 		}
 		w.verbose.Do(func() {
@@ -227,12 +227,12 @@ func (w *word2vec) observe(trained chan struct{}, clk *clock.Clock) {
 }
 
 func (w *word2vec) Save(f io.Writer, typ vector.Type) error {
-	return vector.Save(f, w.Corpus.Dictionary(), w.WordVector(typ), w.verbose, w.opts.LogBatch)
+	return vector.Save(f, w.corpus.Dictionary(), w.WordVector(typ), w.verbose, w.opts.LogBatch)
 }
 
 func (w *word2vec) WordVector(typ vector.Type) *matrix.Matrix {
 	var mat *matrix.Matrix
-	dic := w.Corpus.Dictionary()
+	dic := w.corpus.Dictionary()
 	ng, ok := w.optimizer.(*negativeSampling)
 	if typ == vector.Agg && ok {
 		mat = matrix.New(dic.Len(), w.opts.Dim,
@@ -253,3 +253,5 @@ func (w *word2vec) WordVector(typ vector.Type) *matrix.Matrix {
 	}
 	return mat
 }
+
+func (w *word2vec) Corpus() *corpus.Corpus { return &w.corpus }

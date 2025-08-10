@@ -19,10 +19,12 @@ import (
 
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/matrix"
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/vector"
+	"github.com/thjbdvlt/wego/pkg/corpus"
 )
 
 type Model interface {
 	Train(io.ReadSeeker) error
 	Save(io.Writer, vector.Type) error
 	WordVector(vector.Type) *matrix.Matrix
+	Corpus() *corpus.Corpus
 }
