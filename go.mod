@@ -1,4 +1,5 @@
-module github.com/ynqa/wego
+module github.com/thjbdvlt/wego
+// Fork from: module github.com/ynqa/wego
 
 go 1.18
 
