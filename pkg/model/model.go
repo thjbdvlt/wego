@@ -17,7 +17,6 @@ package model
 import (
 	"io"
 
-	"github.com/thjbdvlt/wego/pkg/corpus/dictionary"
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/matrix"
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/vector"
 )
@@ -26,7 +25,5 @@ type Model interface {
 	Train(io.ReadSeeker) error
 	Save(io.Writer, vector.Type) error
 	WordVector(vector.Type) *matrix.Matrix
-	Words() []string
-	Len() int
-	Dictionary() *dictionary.Dictionary
+	AsMap() *map[string][]float64
 }
