@@ -17,8 +17,8 @@ package glove
 import (
 	"math"
 
-	"github.com/ynqa/wego/pkg/corpus/dictionary"
-	"github.com/ynqa/wego/pkg/model/modelutil/matrix"
+	"github.com/thjbdvlt/wego/pkg/corpus/dictionary"
+	"github.com/thjbdvlt/wego/pkg/model/modelutil/matrix"
 )
 
 type solver interface {

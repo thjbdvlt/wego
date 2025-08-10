@@ -20,8 +20,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ynqa/wego/pkg/embedding"
-	"github.com/ynqa/wego/pkg/embedding/embutil"
+	"github.com/thjbdvlt/wego/pkg/embedding"
+	"github.com/thjbdvlt/wego/pkg/embedding/embutil"
 )
 
 func TestSearchInternal(t *testing.T) {

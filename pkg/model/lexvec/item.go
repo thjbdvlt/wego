@@ -19,9 +19,9 @@ import (
 	"math"
 
 	"github.com/pkg/errors"
-	co "github.com/ynqa/wego/pkg/corpus/cooccurrence"
-	"github.com/ynqa/wego/pkg/corpus/cooccurrence/encode"
-	"github.com/ynqa/wego/pkg/util/clock"
+	co "github.com/thjbdvlt/wego/pkg/corpus/cooccurrence"
+	"github.com/thjbdvlt/wego/pkg/corpus/cooccurrence/encode"
+	"github.com/thjbdvlt/wego/pkg/util/clock"
 )
 
 func (l *lexvec) makeItems(cooc *co.Cooccurrence) (map[uint64]float64, error) {

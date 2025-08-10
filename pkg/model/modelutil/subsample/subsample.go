@@ -18,7 +18,7 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/ynqa/wego/pkg/corpus/dictionary"
+	"github.com/thjbdvlt/wego/pkg/corpus/dictionary"
 )
 
 type Subsampler struct {

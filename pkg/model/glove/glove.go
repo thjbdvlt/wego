@@ -24,15 +24,15 @@ import (
 	"golang.org/x/sync/semaphore"
 
 	"github.com/pkg/errors"
-	"github.com/ynqa/wego/pkg/corpus"
-	"github.com/ynqa/wego/pkg/corpus/fs"
-	"github.com/ynqa/wego/pkg/corpus/memory"
-	"github.com/ynqa/wego/pkg/model"
-	"github.com/ynqa/wego/pkg/model/modelutil"
-	"github.com/ynqa/wego/pkg/model/modelutil/matrix"
-	"github.com/ynqa/wego/pkg/model/modelutil/vector"
-	"github.com/ynqa/wego/pkg/util/clock"
-	"github.com/ynqa/wego/pkg/util/verbose"
+	"github.com/thjbdvlt/wego/pkg/corpus"
+	"github.com/thjbdvlt/wego/pkg/corpus/fs"
+	"github.com/thjbdvlt/wego/pkg/corpus/memory"
+	"github.com/thjbdvlt/wego/pkg/model"
+	"github.com/thjbdvlt/wego/pkg/model/modelutil"
+	"github.com/thjbdvlt/wego/pkg/model/modelutil/matrix"
+	"github.com/thjbdvlt/wego/pkg/model/modelutil/vector"
+	"github.com/thjbdvlt/wego/pkg/util/clock"
+	"github.com/thjbdvlt/wego/pkg/util/verbose"
 )
 
 type glove struct {
