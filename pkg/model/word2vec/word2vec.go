@@ -24,6 +24,7 @@ import (
 	"golang.org/x/sync/semaphore"
 
 	"github.com/pkg/errors"
+	"github.com/thjbdvlt/wego/pkg/corpus/dictionary"
 	"github.com/thjbdvlt/wego/pkg/corpus"
 	"github.com/thjbdvlt/wego/pkg/corpus/fs"
 	"github.com/thjbdvlt/wego/pkg/corpus/memory"
@@ -254,5 +255,6 @@ func (w *word2vec) WordVector(typ vector.Type) *matrix.Matrix {
 	return mat
 }
 
-func (w *word2vec) Words() []string { return w.corpus.Dictionary().Words() }
-func (w *word2vec) Len() int        { return w.corpus.Len() }
+func (w *word2vec) Words() []string                    { return w.corpus.Dictionary().Words() }
+func (w *word2vec) Len() int                           { return w.corpus.Len() }
+func (w *word2vec) Dictionary() *dictionary.Dictionary { return w.corpus.Dictionary() }

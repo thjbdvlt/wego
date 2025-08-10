@@ -17,6 +17,7 @@ package model
 import (
 	"io"
 
+	"github.com/thjbdvlt/wego/pkg/corpus/dictionary"
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/matrix"
 	"github.com/thjbdvlt/wego/pkg/model/modelutil/vector"
 )
@@ -27,4 +28,5 @@ type Model interface {
 	WordVector(vector.Type) *matrix.Matrix
 	Words() []string
 	Len() int
+	Dictionary() *dictionary.Dictionary
 }
