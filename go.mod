@@ -1,4 +1,4 @@
-module github.com/thjbdvlt/wego
+module github.com/ynqa/wego
 
 go 1.18
 
